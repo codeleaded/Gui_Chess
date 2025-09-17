@@ -66,8 +66,9 @@ void Update(AlxWindow* w){
 		for(int x = 0;x<CHESSBOARD_SIZE;x++){
 			const Vec2 p = TransformedView_WorldScreenPos(&tv,(Vec2){ x,y });
 			char bw = (x % 2 && (y + 1) % 2) || ((x + 1) % 2 && y % 2);
-			RenderRect(p.x,p.y,dPiece.x,dPiece.y,(bw ? WHITE : BLACK));
-			
+			char move = selected ? ChessBoard_MoveTo(&cb,selected,pos,(Vic2){ x,y }) : 0;
+			RenderRect(p.x,p.y,dPiece.x,dPiece.y,!move ? (bw ? WHITE : BLACK) : GREEN);
+
 			const ChessFigure* cf = ChessBoard_Get(&cb,x,y);
 			
 			if(cf && selected != cf){
